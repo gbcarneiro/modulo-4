@@ -8,11 +8,12 @@ char *nomeDirecoes[4] = {(char *) "Direita", (char *) "Esquerda", (char *) "Fren
 
 // a partir de uma medida, um valor máximo e minimo a função irá fazer com que o valor se ajuste percentualmente entre essas duas faixas.
 int converteSensor(int medida, int minimo, int maximo) {
-    medida = medida - minimo; 
-    double delta = maximo - minimo; 
-    double resultado = medida / delta; 
-
-    return resultado;
+    medida = (medida - minimo) * 100; 
+    int delta = maximo - minimo; 
+    int resultado = (medida - minimo) * 100 / (maximo - minimo); 
+    cout << resultado;
+    
+	return (medida - minimo) * 100 / (maximo - minimo);
 }
 
 // função que irá verificar se o usuário deseja continuar
@@ -56,6 +57,7 @@ int dirige(int *v,int maxv){
             for (int i = 0; i < 4; i++) {  
                 printf("Digite a distância do robô até o lado %s: ", nomeDirecoes[i]);
                 cin >> medida;
+                medida = converteSensor(medida, 0, 830);
                 posAtualVetor = insereValorVetor(medida, vetorMov, maxVetor, posAtualVetor);
             }
 
